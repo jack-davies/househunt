@@ -15,7 +15,6 @@ def get_token(client_id, client_secret, scope):
     data = {'grant_type':'client_credentials', 'scope':scope}
     request = requests.post(GET_TOKEN, data=data, auth=(client_id, client_secret))
     token = request.json()
-    print(token)
     return token
 
 def save_token(token):
@@ -26,10 +25,6 @@ def load_token():
     with open(TOKEN_FILE) as f:
         return json.load(f)
 
-# To get and save a new token, uncomment below
-# token = get_token(CLIENT_ID, CLIENT_SECRET, SCOPE)
-# save_token(token)
-
 
 # Setup
 with open('config.yml') as f:
@@ -38,12 +33,13 @@ CLIENT_ID = config['CLIENT_ID']
 CLIENT_SECRET = config['CLIENT_SECRET']
 with open('preferences.yml') as f:
     preferences = yaml.safe_load(f)
-print(preferences)
 try:
     token = load_token()
-    token_header = {'Authorization':'Bearer ' + token['access_token']}
 except FileNotFoundError:
-    print("token not found")
+    print("Token not found. Requesting new token...")
+    token = get_token(CLIENT_ID, CLIENT_SECRET, SCOPE)
+    save_token(token)
+token_header = {'Authorization':'Bearer ' + token['access_token']}
 
 
 # Test
