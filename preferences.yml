@@ -1,0 +1,20 @@
+# postcodes available at http://stat.abs.gov.au/itt/r.jsp?ABSMaps
+# 2000 cbd
+# 2006 camperdown
+# 2007 ultimo
+# 2008 chippendale
+# 2009 pyrmont
+# 2010 darlinghurst/surry hills
+# 2011 potts point
+# 2016 redfern
+# 2021 paddington
+# 2027 darling point
+# 2037 glebe
+locations: [2000, 2006, 2007, 2008, 2009, 2010, 2011, 2016, 2021, 2027, 2037]
+
+search:
+  listingType: 'Rent'
+  propertyTypes: ['House']
+  maxBedrooms: 3
+  listingAttributes: ['HasPhotos']
+  excludePriceWithheld: true
