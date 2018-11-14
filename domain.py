@@ -41,6 +41,7 @@ with open('preferences.yml') as f:
 print(preferences)
 try:
     token = load_token()
+    token_header = {'Authorization':'Bearer ' + token['access_token']}
 except FileNotFoundError:
     print("token not found")
 
@@ -49,7 +50,7 @@ except FileNotFoundError:
 def get_locations(search_terms):
     locations = []
     for search_term in search_terms:
-        request = requests.get(GET_LOCATIONS, params={'terms':search_term})
+        request = requests.get(GET_LOCATIONS, params={'terms':search_term}, headers=token_header)
         locations.append(request.json())
     return locations
 print(get_locations(['2000']))
